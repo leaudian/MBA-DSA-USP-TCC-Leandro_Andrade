@@ -401,3 +401,20 @@ for (i in (min(BD_Amostra$ano_campeonato)-1):(max(BD_Amostra$ano_campeonato)-1))
   BD_Amostra$Finalista_Brasileiro_vis[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_vis==BD_Historico_Brasileiro$Vice[BD_Historico_Brasileiro$Ano==i]]<-"Vice"
 }
 rm(i,BD_Historico_Brasileiro)
+
+#---------------------------------------#
+#-----------Estado dos clubes-----------#
+#---------------------------------------#
+
+#Inclusao da nova variavel
+BD_Amostra<-mutate(BD_Amostra,Estado_man="Nao",Estado_vis="Nao")
+
+
+#Laco Clubo no BD_Times_Estados
+for(i in 1:dim(BD_Times_Estados)[1]){
+  #Estado_time_mandante
+  BD_Amostra$Estado_man[BD_Amostra$time_man==BD_Times_Estados$time_man[i]]<-BD_Times_Estados$Estado[i]
+  #Estado_time_visitante
+  BD_Amostra$Estado_vis[BD_Amostra$time_vis==BD_Times_Estados$time_man[i]]<-BD_Times_Estados$Estado[i]
+}#Fim Laco Clube no BD_Times_Estados
+rm(i,BD_Times_Estados)
