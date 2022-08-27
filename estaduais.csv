@@ -1,0 +1,295 @@
+Ano;Campeao;Vice;Estado
+2022;Palmeiras;São Paulo;SP
+2021;São Paulo;Palmeiras;SP
+2020;Palmeiras;Corinthians;SP
+2019;Corinthians;São Paulo;SP
+2018;Corinthians;Palmeiras;SP
+2017;Corinthians;Ponte Preta;SP
+2016;Santos;Grêmio Osasco Audax;SP
+2015;Santos;Palmeiras;SP
+2014;Ituano;Santos;SP
+2013;Corinthians;Santos;SP
+2012;Santos;Guarani;SP
+2011;Santos;Corinthians;SP
+2010;Santos;Santo André;SP
+2009;Corinthians;Santos;SP
+2008;Palmeiras;Ponte Preta;SP
+2007;Santos;AD São Caetano;SP
+2006;Santos;São Paulo;SP
+2005;São Paulo;Corinthians;SP
+2004;AD São Caetano;Paulista;SP
+2003;Corinthians;São Paulo;SP
+2002;Ituano;União São João;SP
+2022;Brusque;Camboriú FC;SC
+2021;Avaí;Chapecoense;SC
+2020;Chapecoense;Brusque;SC
+2019;Avaí;Chapecoense;SC
+2018;Figueirense;Chapecoense;SC
+2017;Chapecoense;Avai;SC
+2016;Chapecoense;Joinville;SC
+2015;Figueirense;Joinville;SC
+2014;Figueirense;Joinville;SC
+2013;Criciuma;Chapecoense;SC
+2012;Avaí;Figueirense;SC
+2011;Chapecoense;Criciúma;SC
+2010;Avaí;Joinville;SC
+2009;Avaí;Chapecoense;SC
+2008;Figueirense;Criciúma;SC
+2007;Chapecoense;Criciúma;SC
+2006;Figueirense;Joinville;SC
+2005;Criciúma;CA Hermann Aichinger;SC
+2004;Figueirense;CA Hermann Aichinger;SC
+2003;Figueirense;Caxias;SC
+2002;Figueirense;Criciúma;SC
+2022;Coritiba;Maringá Futebol Clube;PR
+2021;Londrina;FC Cascavel;PR
+2020;Athletico;Coritiba;PR
+2019;Athletico;Toledo EC;PR
+2018;Athletico-PR;Coritiba;PR
+2017;Coritiba;Athletico-PR;PR
+2016;Athletico-PR;Coritiba;PR
+2015;Operario (Ponta Grossa);Coritiba;PR
+2014;Londrina;Maringá Futebol Clube;PR
+2013;Coritiba;Athletico-PR;PR
+2012;Coritiba;Athletico-PR;PR
+2011;Coritiba;Athletico-PR;PR
+2010;Coritiba;Athletico-PR;PR
+2009;Athletico-PR;J. Malucelli;PR
+2008;Coritiba;Athletico-PR;PR
+2007;Paranavaí;Paraná Clube;PR
+2006;Paraná Clube;ADAP;PR
+2005;Athletico-PR;Coritiba;PR
+2004;Coritiba;Athletico-PR;PR
+2003;Coritiba;Paranavaí;PR
+2002;Iraty;Grêmio Maringá;PR
+2022;Fluminense;Flamengo;RJ
+2021;Flamengo;Fluminense;RJ
+2020;Flamengo;Fluminense;RJ
+2019;Flamengo;Vasco;RJ
+2018;Botafogo;Vasco;RJ
+2017;Flamengo;Fluminense;RJ
+2016;Vasco;Botafogo;RJ
+2015;Vasco;Botafogo;RJ
+2014;Flamengo;Vasco;RJ
+2013;Botafogo;Flamengo;RJ
+2012;Fluminense;Botafogo;RJ
+2011;Flamengo;Fluminense;RJ
+2010;Botafogo;Flamengo;RJ
+2009;Flamengo;Botafogo;RJ
+2008;Flamengo;Botafogo;RJ
+2007;Flamengo;Botafogo;RJ
+2006;Botafogo;Madureira;RJ
+2005;Fluminense;Volta Redonda;RJ
+2004;Flamengo;Vasco;RJ
+2003;Vasco;Fluminense;RJ
+2002;Fluminense;Americano;RJ
+2022;Atletico;Cruzeiro;MG
+2021;Atletico;America;MG
+2020;Atletico;Tombense;MG
+2019;Cruzeiro;Atlético-MG;MG
+2018;Cruzeiro;Atlético-MG;MG
+2017;Atlético-MG;Cruzeiro;MG
+2016;America;Atlético-MG;MG
+2015;Atlético-MG;Caldense;MG
+2014;Cruzeiro;Atlético-MG;MG
+2013;Atlético-MG;Cruzeiro;MG
+2012;Atlético-MG;América;MG
+2011;Cruzeiro;Atlético-MG;MG
+2010;Atlético-MG;Ipatinga;MG
+2009;Cruzeiro;Atlético-MG;MG
+2008;Cruzeiro;Atlético-MG;MG
+2007;Atlético-MG;Cruzeiro;MG
+2006;Cruzeiro;Ipatinga;MG
+2005;Ipatinga;Cruzeiro;MG
+2004;Cruzeiro;Atlético-MG;MG
+2003;Cruzeiro;Atlético-MG;MG
+2002;Caldense;Ipatinga;MG
+2022;Grêmio;Ypiranga (Erechim);RS
+2021;Grêmio;Internacional;RS
+2020;Grêmio;Caxias;RS
+2019;Grêmio;Internacional;RS
+2018;Grêmio;Brasil (Pelotas);RS
+2017;Novo Hamburgo (Novo Hamburgo);Internacional;RS
+2016;Internacional;Juventude (Caxias do Sul);RS
+2015;Internacional;Grêmio;RS
+2014;Internacional;Grêmio;RS
+2013;Internacional;CE Lajeadense (Lajeado);RS
+2012;Internacional;Caxias (Caxias do Sul);RS
+2011;Internacional;Grêmio;RS
+2010;Grêmio;Internacional;RS
+2009;Internacional;Caxias (Caxias do Sul);RS
+2008;Internacional;Juventude (Caxias do Sul);RS
+2007;Grêmio;Juventude (Caxias do Sul);RS
+2006;Grêmio;Internacional;RS
+2005;Internacional;15 de Novembro (Campo Bom);RS
+2004;Internacional;SC Ulbra (Canoas);RS
+2003;Internacional;15 de Novembro (Campo Bom);RS
+2002;Internacional;15 de Novembro (Campo Bom);RS
+2022;Nautico;Retrô FC;PE
+2021;Nautico;Sport;PE
+2020;Salgueiro;Santa Cruz;PE
+2019;Sport;Nautico;PE
+2018;Nautico;Central;PE
+2017;Sport;Salgueiro;PE
+2016;Santa Cruz;Sport;PE
+2015;Santa Cruz;Salgueiro;PE
+2014;Sport;Náutico;PE
+2013;Santa Cruz;Sport;PE
+2012;Santa Cruz;Sport;PE
+2011;Santa Cruz;Sport;PE
+2010;Sport;Náutico;PE
+2009;Sport (Invicto);Náutico;PE
+2008;Sport;Nautico;PE
+2007;Sport;Central;PE
+2006;Sport;Santa Cruz;PE
+2005;Santa Cruz;Náutico;PE
+2004;Náutico;Santa Cruz;PE
+2003;Sport;Santa Cruz;PE
+2002;Náutico;Santa Cruz;PE
+2022;Atlético-GO;Goiás;GO
+2021;Grêmio Anápolis;Vila Nova;GO
+2020;Atlético-GO;Goianésia;GO
+2019;Atlético-GO;Goiás;GO
+2018;Goiás;Aparecidense;GO
+2017;Goiás;Vila Nova;GO
+2016;Goiás;Anápolis;GO
+2015;Goias;Aparecidense;GO
+2014;Atlético-GO;Goias;GO
+2013;Goiás;Atlético-GO;GO
+2012;Goiás;Atlético-GO;GO
+2011;Atlético-GO;Goiás;GO
+2010;Atlético-GO;Santa Helena;GO
+2009;Goiás;Atlético-GO;GO
+2008;Itumbiara;Goiás;GO
+2007;Atlético-GO;Goiás;GO
+2006;Goiás;Atlético-GO;GO
+2005;Vila Nova;Goiás;GO
+2004;CRAC;Vila Nova;GO
+2003;Goiás;Novo Horizonte;GO
+2002;Goiás;Novo Horizonte;GO
+2022;Fortaleza;Caucaia EC;CE
+2021;Fortaleza;Ceará;CE
+2020;Fortaleza;Ceará;CE
+2019;Fortaleza;Ceará;CE
+2018;Ceará;Fortaleza;CE
+2017;Ceará;Ferroviário;CE
+2016;Fortaleza;Uniclinic;CE
+2015;Fortaleza;Ceará;CE
+2014;Ceara;Fortaleza;CE
+2013;Ceara;Guarany (Sobral);CE
+2012;Ceara;Fortaleza;CE
+2011;Ceará;Guarani (Juazeiro do Norte);CE
+2010;Fortaleza;Ceará;CE
+2009;Fortaleza;Ceará;CE
+2008;Fortaleza;Icasa;CE
+2007;Fortaleza;Icasa;CE
+2006;Ceará;Fortaleza;CE
+2005;Fortaleza;Icasa;CE
+2004;Fortaleza;Ceará;CE
+2003;Fortaleza;Ferroviário;CE
+2002;Ceará;Fortaleza;CE
+2022;Atlético de Alagoinhas;Jacuipense;BA
+2021;Atlético de Alagoinhas;Bahia de Feira;BA
+2020;Bahia;Atlético de Alagoinhas;BA
+2019;Bahia;Bahia de Feira;BA
+2018;Bahia;Vitória;BA
+2017;Vitória;Bahia;BA
+2016;Vitória;Bahia;BA
+2015;Bahia;Vitória da Conquista;BA
+2014;Bahia;Vitória;BA
+2013;Vitória;Bahia;BA
+2012;Bahia;Vitória;BA
+2011;Bahia de Feira;Vitória;BA
+2010;Vitória;Bahia;BA
+2009;Vitória;Bahia;BA
+2008;Vitória;Bahia;BA
+2007;Vitória;Bahia;BA
+2006;Colo Colo;Vitória;BA
+2005;Vitória;Bahia;BA
+2004;Vitória;Bahia;BA
+2003;Vitória;AE Catuense;BA
+2002;Vitória;Fluminense de Feira FC;BA
+2022;Clube do Remo;Paysandu;PA
+2021;Paysandu;Tuna Luso Brasileira;PA
+2020;Paysandu;Clube do Remo;PA
+2019;Clube do Remo;Independente;PA
+2018;Clube do Remo;Paysandu;PA
+2017;Paysandu;Clube do Remo;PA
+2016;Paysandu;São Francisco (Santarém);PA
+2015;Clube do Remo;Independente;PA
+2014;Clube do Remo;Paysandu;PA
+2013;Paysandu;Paragominas;PA
+2012;Cametá SC;Clube do Remo;PA
+2011;Independente AC;Paysandu;PA
+2010;Paysandu;Águia de Marabá;PA
+2009;Paysandu;São Raimundo (Santarém);PA
+2008;Clube do Remo;Águia de Marabá;PA
+2007;Clube do Remo;Tuna Luso Brasileira;PA
+2006;Paysandu;Ananindeua;PA
+2005;Paysandu;Clube do Remo;PA
+2004;Clube do Remo - Invicto;Paysandu;PA
+2003;Clube do Remo;Tuna Luso Brasileira;PA
+2002;Paysandu;Tuna Luso Brasileira;PA
+2022;Brasiliense;Ceilândia;DF
+2021;Brasiliense;Ceilândia;DF
+2020;Gama;Brasiliense;DF
+2019;Gama;Brasiliense;DF
+2018;Sobradinho;Brasiliense;DF
+2017;Brasiliense;Ceilândia;DF
+2016;AA Luziânia;Ceilândia;DF
+2015;Gama;Brasilia FC;DF
+2014;AA Luziânia;Brasilia FC;DF
+2013;Brasiliense;Brasilia;DF
+2012;Ceilândia;AA Luziânia;DF
+2011;Brasiliense;Gama;DF
+2010;Ceilândia;Brasiliense;DF
+2009;Brasiliense;Brasilia;DF
+2008;Brasiliense;Dom Pedro II;DF
+2007;Brasiliense;Esportivo Guará;DF
+2006;Brasiliense;Gama;DF
+2005;Brasiliense;Ceilândia;DF
+2004;Brasiliense;CFZ/BSB;DF
+2003;Gama;Brasiliense;DF
+2002;CFZ/BSB;Gama;DF
+2022;ABC;America-RN;RN
+2021;Globo FC;ABC;RN
+2020;ABC;America-RN;RN
+2019;America-RN;ABC;RN
+2018;ABC;America-RN;RN
+2017;ABC;Globo FC;RN
+2016;ABC;América;RN
+2015;América;ABC;RN
+2014;América;Globo FC;RN
+2013;Potiguar (Mossoró);América;RN
+2012;América;ABC;RN
+2011;ABC;Santa Cruz (Santa Cruz);RN
+2010;ABC;AC Coríntians (Caicó);RN
+2009;ASSU;Potyguar (Currais Novos);RN
+2008;ABC;Potiguar (Mossoró);RN
+2007;ABC;América;RN
+2006;Baraúnas;Potiguar (Mossoró);RN
+2005;ABC;América;RN
+2004;Potiguar (Mossoró);América;RN
+2003;América;São Gonçalo;RN
+2002;América;AC Corinthians (Caicó);RN
+2022;CRB;ASA;AL
+2021;CSA;CRB;AL
+2020;CRB;CSA;AL
+2019;CSA;CRB;AL
+2018;CSA;CRB;AL
+2017;CRB;CSA;AL
+2016;CRB;CSA;AL
+2015;CRB;Coruripe;AL
+2014;Coruripe;CRB;AL
+2013;CRB;CSA;AL
+2012;CRB;ASA;AL
+2011;ASA;Coruripe;AL
+2010;Murici;ASA;AL
+2009;ASA;SC Corinthians Alagoano;AL
+2008;CSA;ASA;AL
+2007;Coruripe;SC Corinthians Alagoano;AL
+2006;Coruripe;CSA;AL
+2005;ASA;Coruripe;AL
+2004;SC Corinthians Alagoano;Coruripe;AL
+2003;ASA;CRB;AL
+2002;CRB;CSA;AL
