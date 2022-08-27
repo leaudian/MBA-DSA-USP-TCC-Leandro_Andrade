@@ -243,3 +243,12 @@ BD_Amostra$idade_media_titular_vis[BD_Amostra$ano_campeonato==2011 &
                                        times_vis$idade_media_titular_vis))
 rm(times_man,times_vis)
 
+#-------------------------------------#
+#Normalizacao dos valores de jogadores#
+#-------------------------------------#
+for (i in 1:dim(BD_Amostra)[1]) {
+  valor_total=BD_Amostra$valor_equipe_titular_man[i]+BD_Amostra$valor_equipe_titular_vis[i]
+  BD_Amostra$valor_equipe_titular_man[i]<-BD_Amostra$valor_equipe_titular_man[i]/valor_total
+  BD_Amostra$valor_equipe_titular_vis[i]<-BD_Amostra$valor_equipe_titular_vis[i]/valor_total
+}
+rm(i,valor_total)
