@@ -382,3 +382,22 @@ for (i in (min(BD_Amostra$ano_campeonato)-1):(max(BD_Amostra$ano_campeonato)-1))
   BD_Amostra$Finalista_Copa_Brasil_vis[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_vis==BD_Copa_do_Brasil[BD_Copa_do_Brasil==i,3]]<-"Vice"
 }#Fim Laco Ano na BD_Copa_do_Brasil
 rm(i,BD_Copa_do_Brasil)
+
+#---------------------------------------#
+#---Posicao Brasileirco ano anterior----#
+#---------------------------------------#
+
+#Inclusao da nova variavel
+BD_Amostra<-mutate(BD_Amostra,Finalista_Brasileiro_man="Nao",Finalista_Brasileiro_vis="Nao")
+
+for (i in (min(BD_Amostra$ano_campeonato)-1):(max(BD_Amostra$ano_campeonato)-1)){
+  #Campeao Mandante
+  BD_Amostra$Finalista_Brasileiro_man[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_man==BD_Historico_Brasileiro$Campeao[BD_Historico_Brasileiro$Ano==i]]<-"Campeao"
+  #Campeao Visitante
+  BD_Amostra$Finalista_Brasileiro_vis[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_vis==BD_Historico_Brasileiro$Campeco[BD_Historico_Brasileiro$Ano==i]]<-"Campeao"
+  #Vice Mandante
+  BD_Amostra$Finalista_Brasileiro_man[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_man==BD_Historico_Brasileiro$Vice[BD_Historico_Brasileiro$Ano==i]]<-"Vice"
+  #Vice Visitante
+  BD_Amostra$Finalista_Brasileiro_vis[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_vis==BD_Historico_Brasileiro$Vice[BD_Historico_Brasileiro$Ano==i]]<-"Vice"
+}
+rm(i,BD_Historico_Brasileiro)
