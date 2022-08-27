@@ -338,3 +338,27 @@ for(i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)){
 
 rm(lista_ano,i,j,k,lista_clube,PO1,PO2,PO3,PO4,PO5)
 
+#---------------------------------------#
+#-----Participacao na Libertadores------#
+#---------------------------------------#
+#Inclusao da nova variavel
+BD_Amostra<-mutate(BD_Amostra,Libertadores_man="Nao",Libertadores_vis="Nao")
+
+#Laco Clube na BD_Libertadores
+for (i in 2:dim(BD_Libertadores)[2]){
+  
+  #Laco Ano na BD_Libertadores
+  for (j in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)){
+    
+    if(BD_Libertadores[BD_Libertadores$Ano==j,i]=="Sim"){
+      
+      #Atualizacao para "Sim" considerando Ano / Time / Man 
+      BD_Amostra$Libertadores_man[BD_Amostra$ano_campeonato==j & BD_Amostra$time_man==names(BD_Libertadores)[i]]<-"Sim"
+      
+      #Atualizacao para "Sim" considerando Ano / Time / Man
+      BD_Amostra$Libertadores_vis[BD_Amostra$ano_campeonato==j & BD_Amostra$time_vis==names(BD_Libertadores)[i]]<-"Sim"
+      
+    }#Fim IF/ELSE - SIM NO BD_Libertadores
+  }#Fim Laco Ano na BD_Libertadores
+}#Fim Laco Clube na BD_Libertadores
+rm(i,j,BD_Libertadores)
