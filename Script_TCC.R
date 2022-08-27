@@ -211,3 +211,35 @@ for (i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)) {
   }
 }
 rm(times_man,times_vis,i,j,lista)
+
+#Falta de dados de idade e valor da equipe referente ao clube Figueirense na competicao de 2011
+#A referencia de informacao mais proxima e a competicao de 2012, visto que nos anos de 2010,2009 e 2008 o Figueirense nao disputou a primeira divisao
+#Valor
+times_man<-BD_Amostra %>% filter(ano_campeonato==2012 & time_man=="Figueirense" & ! is.na(valor_equipe_titular_man))
+times_vis<-BD_Amostra %>% filter(ano_campeonato==2012 & time_vis=="Figueirense" & ! is.na(valor_equipe_titular_vis))
+BD_Amostra$valor_equipe_titular_man[BD_Amostra$ano_campeonato==2011 & 
+                                      BD_Amostra$time_man=="Figueirense" & 
+                                      is.na(BD_Amostra$valor_equipe_titular_man)]<-median(c(
+                                        times_man$valor_equipe_titular_man,
+                                        times_vis$valor_equipe_titular_vis))
+BD_Amostra$valor_equipe_titular_vis[BD_Amostra$ano_campeonato==2011 & 
+                                      BD_Amostra$time_vis=="Figueirense" & 
+                                      is.na(BD_Amostra$valor_equipe_titular_vis)]<-median(c(
+                                        times_man$valor_equipe_titular_man,
+                                        times_vis$valor_equipe_titular_vis))
+
+#Idade
+times_man<-BD_Amostra %>% filter(ano_campeonato==2012 & time_man=="Figueirense" & ! is.na(idade_media_titular_man))
+times_vis<-BD_Amostra %>% filter(ano_campeonato==2012 & time_vis=="Figueirense" & ! is.na(idade_media_titular_vis))
+BD_Amostra$idade_media_titular_man[BD_Amostra$ano_campeonato==2011 &
+                                     BD_Amostra$time_man=="Figueirense" &
+                                     is.na(BD_Amostra$idade_media_titular_man)]<-median(c(
+                                       times_man$idade_media_titular_man,
+                                       times_vis$idade_media_titular_vis))
+BD_Amostra$idade_media_titular_vis[BD_Amostra$ano_campeonato==2011 &
+                                     BD_Amostra$time_vis=="Figueirense" &
+                                     is.na(BD_Amostra$idade_media_titular_vis)]<-median(c(
+                                       times_man$idade_media_titular_man,
+                                       times_vis$idade_media_titular_vis))
+rm(times_man,times_vis)
+
