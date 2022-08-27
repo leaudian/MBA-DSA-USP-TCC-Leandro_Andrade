@@ -362,3 +362,23 @@ for (i in 2:dim(BD_Libertadores)[2]){
   }#Fim Laco Ano na BD_Libertadores
 }#Fim Laco Clube na BD_Libertadores
 rm(i,j,BD_Libertadores)
+
+#---------------------------------------#
+#--Posicao Copa do Brasil ano anterior--#
+#---------------------------------------#
+
+#Inclusao da nova variavel
+BD_Amostra<-mutate(BD_Amostra,Finalista_Copa_Brasil_man="Nao",Finalista_Copa_Brasil_vis="Nao")
+
+#Laco Ano na BD_Copa_do_Brasil
+for (i in (min(BD_Amostra$ano_campeonato)-1):(max(BD_Amostra$ano_campeonato)-1)){
+  #Campeao-mandante
+  BD_Amostra$Finalista_Copa_Brasil_man[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_man==BD_Copa_do_Brasil[BD_Copa_do_Brasil==i,2]]<-"Campeao"
+  #Campeao-visitante
+  BD_Amostra$Finalista_Copa_Brasil_vis[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_vis==BD_Copa_do_Brasil[BD_Copa_do_Brasil==i,2]]<-"Campeao"
+  #Vice-mandante
+  BD_Amostra$Finalista_Copa_Brasil_man[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_man==BD_Copa_do_Brasil[BD_Copa_do_Brasil==i,3]]<-"Vice"
+  #Vice-visitante
+  BD_Amostra$Finalista_Copa_Brasil_vis[BD_Amostra$ano_campeonato==(i+1) & BD_Amostra$time_vis==BD_Copa_do_Brasil[BD_Copa_do_Brasil==i,3]]<-"Vice"
+}#Fim Laco Ano na BD_Copa_do_Brasil
+rm(i,BD_Copa_do_Brasil)
