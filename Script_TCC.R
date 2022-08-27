@@ -252,3 +252,89 @@ for (i in 1:dim(BD_Amostra)[1]) {
   BD_Amostra$valor_equipe_titular_vis[i]<-BD_Amostra$valor_equipe_titular_vis[i]/valor_total
 }
 rm(i,valor_total)
+
+#---------------------------------------#
+#--Aproveitamento das ultimas rodadas---#
+#---------------------------------------#
+#Inclusao das novas variaveis
+BD_Amostra<-mutate(BD_Amostra,
+                   Aprov_1_man=0,
+                   Aprov_3_man=0,
+                   Aprov_5_man=0,
+                   Aprov_1_vis=0,
+                   Aprov_3_vis=0,
+                   Aprov_5_vis=0)
+
+
+#Laco Ano
+for(i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)){
+  lista_ano<-BD_Amostra %>% filter(ano_campeonato==i)
+  lista_clube<-unique(lista_ano$time_man)
+  
+  #Laco Clube
+  for(j in 1:length(lista_clube)){
+    #Zerar os parametros de PO para a rodada inicial
+    PO1<-3
+    PO2<-3
+    PO3<-3
+    PO4<-3
+    PO5<-3
+    
+    #Laco Rodada
+    for(k in min(lista_ano$rodada):max(lista_ano$rodada)){
+      
+      #TIME MANDANTE
+      if(length(BD_Amostra$time_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_man==lista_clube[j]])!=0){
+        #Atualizar o banco de dados
+        BD_Amostra$Aprov_1_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_man==lista_clube[j]]<-PO1/3
+        BD_Amostra$Aprov_3_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_man==lista_clube[j]]<-(PO1+PO2+PO3)/9        
+        BD_Amostra$Aprov_5_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_man==lista_clube[j]]<-(PO1+PO2+PO3+PO4+PO5)/15
+        #Redistribuir os POs
+        PO5<-PO4
+        PO4<-PO3
+        PO3<-PO2
+        PO2<-PO1
+        #MANDANTE(EMPATE)
+        if(BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_man==lista_clube[j]]==BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_man==lista_clube[j]]){
+          PO1<-1
+        }else{#MANDANTE(EMPATE)
+          #MANDANTE(VITORIA/DERROTA)
+          if(BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_man==lista_clube[j]]>BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_man==lista_clube[j]]){
+            PO1<-3
+          }else{#MANDANTE(VITORIA/DERROTA)
+            PO1<-0
+          }#Fim IF/ELSE - MANDANTE(VITORIA/DERROTA)
+        }#Fim IF/ELSE - MANDANTE(EMPATE)
+        
+        
+      }else{#TIME VISITANTE
+        #Verificar se de fato o time ?? visitante (Poka Yoke WO)
+        if(length(BD_Amostra$time_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_vis==lista_clube[j]])!=0){
+          #Atualizar o banco de dados
+          BD_Amostra$Aprov_1_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_vis==lista_clube[j]]<-PO1/3
+          BD_Amostra$Aprov_3_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_vis==lista_clube[j]]<-(PO1+PO2+PO3)/9        
+          BD_Amostra$Aprov_5_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_vis==lista_clube[j]]<-(PO1+PO2+PO3+PO4+PO5)/15
+          #Redistribuir os POs
+          PO5<-PO4
+          PO4<-PO3
+          PO3<-PO2
+          PO2<-PO1
+          #VISITANTE(EMPATE)
+          if(BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_vis==lista_clube[j]]==BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_vis==lista_clube[j]]){
+            PO1<-1
+          }else{#VISITANTE(EMPATE)
+            #VISITANTE(VITORIA/DERROTA)
+            if(BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_vis==lista_clube[j]]<BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada== k & BD_Amostra$time_vis==lista_clube[j]]){
+              PO1<-3
+            }else{#VISITANTE(VITORIA/DERROTA)
+              PO1<-0
+            }
+          }#Fim IF/ELSE - VISITANTE(VITORIA/DERROTA)
+        }# Fim IF/ELSE - VISITANTE Empate
+      }# Fim IF/ELSE - MANDANTE / VISITANTE
+    }#Fim Laco Rodada
+  }#Fim Laco Clube
+}#Fim Laco ano
+
+rm(lista_ano,i,j,k,lista_clube,PO1,PO2,PO3,PO4,PO5)
+
