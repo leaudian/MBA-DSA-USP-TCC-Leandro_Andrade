@@ -159,3 +159,55 @@ BD_Historico_Estadual<-mutate(BD_Historico_Estadual,Campeao=replace(Campeao,Camp
 #Eliminacao da partida Chapecoense x Atletico-MG (ultima rodada do campeonato de 2016) - WO duplo
 BD_Amostra<-BD_Amostra %>% filter(! is.na(gols_man))
  
+#----------------------------------------#
+#------------Data Wrangling--------------#
+#----------------------------------------#
+
+#-----------------------#
+#Ajustes para valores NA#
+#-----------------------#
+
+
+#For com base nos anos do campeonato
+for (i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)) {
+  times_man<-as.data.frame(BD_Amostra %>% filter(ano_campeonato==i) %>% filter(is.na(valor_equipe_titular_man)|
+                                                                                 is.na(idade_media_titular_man)))
+  times_vis<-as.data.frame(BD_Amostra %>% filter(ano_campeonato==i) %>% filter(is.na(valor_equipe_titular_vis)|
+                                                                                 is.na(idade_media_titular_vis)))
+  lista<-c(unique(times_man$time_man),unique(times_vis$time_vis))
+  
+  if(length(lista)>=2){
+    for (j in 1:length(lista)) {
+      #Calcular a mediana para os times pertencentes a lista
+      
+      #Valor
+      times_man<-BD_Amostra %>% filter(ano_campeonato==i & time_man==lista[j] & ! is.na(valor_equipe_titular_man))
+      times_vis<-BD_Amostra %>% filter(ano_campeonato==i & time_vis==lista[j] & ! is.na(valor_equipe_titular_vis))
+      BD_Amostra$valor_equipe_titular_man[BD_Amostra$ano_campeonato==i & 
+                                            BD_Amostra$time_man==lista[j] & 
+                                            is.na(BD_Amostra$valor_equipe_titular_man)]<-median(c(
+                                              times_man$valor_equipe_titular_man,
+                                              times_vis$valor_equipe_titular_vis))
+      BD_Amostra$valor_equipe_titular_vis[BD_Amostra$ano_campeonato==i & 
+                                            BD_Amostra$time_vis==lista[j] & 
+                                            is.na(BD_Amostra$valor_equipe_titular_vis)]<-median(c(
+                                              times_man$valor_equipe_titular_man,
+                                              times_vis$valor_equipe_titular_vis))
+      
+      #Idade
+      times_man<-BD_Amostra %>% filter(ano_campeonato==i & time_man==lista[j] & ! is.na(idade_media_titular_man))
+      times_vis<-BD_Amostra %>% filter(ano_campeonato==i & time_vis==lista[j] & ! is.na(idade_media_titular_vis))
+      BD_Amostra$idade_media_titular_man[BD_Amostra$ano_campeonato==i &
+                                           BD_Amostra$time_man==lista[j] &
+                                           is.na(BD_Amostra$idade_media_titular_man)]<-median(c(
+                                             times_man$idade_media_titular_man,
+                                             times_vis$idade_media_titular_vis))
+      BD_Amostra$idade_media_titular_vis[BD_Amostra$ano_campeonato==i &
+                                           BD_Amostra$time_vis==lista[j] &
+                                           is.na(BD_Amostra$idade_media_titular_vis)]<-median(c(
+                                             times_man$idade_media_titular_man,
+                                             times_vis$idade_media_titular_vis))
+    }    
+  }
+}
+rm(times_man,times_vis,i,j,lista)
