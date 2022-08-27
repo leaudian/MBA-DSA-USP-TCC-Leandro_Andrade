@@ -154,3 +154,8 @@ BD_Historico_Estadual<-mutate(BD_Historico_Estadual,Campeao=replace(Campeao,Camp
                               Vice=replace(Vice,Vice=="Clube do Remo","Remo"),
                               Campeco=replace(Campeao,Campeao=="America-RN","America-RN"),
                               Vice=replace(Vice,Vice=="America-RN","America-RN"))
+
+
+#Eliminacao da partida Chapecoense x Atletico-MG (ultima rodada do campeonato de 2016) - WO duplo
+BD_Amostra<-BD_Amostra %>% filter(! is.na(gols_man))
+ 
