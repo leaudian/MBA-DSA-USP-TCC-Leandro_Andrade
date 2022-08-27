@@ -418,3 +418,37 @@ for(i in 1:dim(BD_Times_Estados)[1]){
   BD_Amostra$Estado_vis[BD_Amostra$time_vis==BD_Times_Estados$time_man[i]]<-BD_Times_Estados$Estado[i]
 }#Fim Laco Clube no BD_Times_Estados
 rm(i,BD_Times_Estados)
+
+#---------------------------------------#
+#---Posicao no Campeonato Estadual----#
+#---------------------------------------#
+
+#Inclusco da nova variavel
+BD_Amostra<-mutate(BD_Amostra,Finalista_Estadual_man="Nao",Finalista_Estadual_vis="Nao")
+
+
+#Laco Ano
+for (i in (min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato))) {
+  
+  lista_ano<-BD_Historico_Estadual %>% filter(Ano==i)
+  lista_camp<-lista_ano$Campeao
+  lista_vice<-lista_ano$Vice
+  
+  #Laco Campeao
+  for (j in 1:length(lista_camp)) {
+    #Campeao Mandante
+    BD_Amostra$Finalista_Estadual_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_camp[j]]<-"Campeao"
+    #Campeao Visitante
+    BD_Amostra$Finalista_Estadual_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_camp[j]]<-"Campeao"
+  }#Fim Laco Campeao
+  
+  #Laco Vice
+  for (k in 1:length(lista_vice)) {
+    #Vice Mandante
+    BD_Amostra$Finalista_Estadual_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_vice[k]]<-"Vice"
+    #Vice Visitante
+    BD_Amostra$Finalista_Estadual_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_vice[j]]<-"Vice"
+  }#Fim Laco Vice
+}#Fim Laco ano
+
+rm(i,j,k,lista_ano,lista_camp,lista_vice,BD_Historico_Estadual)
