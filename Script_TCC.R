@@ -452,3 +452,66 @@ for (i in (min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato))) {
 }#Fim Laco ano
 
 rm(i,j,k,lista_ano,lista_camp,lista_vice,BD_Historico_Estadual)
+
+#---------------------------------------#
+#-------Media acumulada de Gols---------#
+#---------------------------------------#
+#Inclusao das novas variaveis
+BD_Amostra<-mutate(BD_Amostra,
+                   med_acum_gols_m_man=0,
+                   med_acum_gols_m_vis=0,
+                   med_acum_gols_s_man=0,
+                   med_acum_gols_s_vis=0)
+
+#Laco Ano
+for (i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)) {
+  lista_ano<-BD_Amostra %>% filter(ano_campeonato==i)
+  lista_clube<-unique(lista_ano$time_man)
+  
+  #Laco Clube
+  for (j in 1:length(lista_clube)) {
+    GM<-0
+    GS<-0
+    
+    #Laco Rodada
+    for (k in min(lista_ano$rodada):max(lista_ano$rodada)) {
+      
+      #Condicional da primeira rodada (Midia acumulada =0)
+      if(k==1){
+        
+        #Condicional de time mandante (1a rodada) 
+        if(length(BD_Amostra$time_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_man==lista_clube[j]])!=0){
+          BD_Amostra$med_acum_gols_m_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]<-0
+          BD_Amostra$med_acum_gols_s_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]<-0
+          GM<-BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]
+          GS<-BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]
+          
+        } else{ #Condicional de time mandante (1a rodada)
+          BD_Amostra$med_acum_gols_m_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]<-0
+          BD_Amostra$med_acum_gols_s_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]<-0
+          GM<-BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]
+          GS<-BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]
+        }#Fim Condicional de time mandante (1a rodada)
+        
+      }else{ #Condicional da primeira rodada
+        
+        #Condicional de time mandante  (demais rodadas)
+        if(length(BD_Amostra$time_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$rodada==k & BD_Amostra$time_man==lista_clube[j]])!=0){
+          BD_Amostra$med_acum_gols_m_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]<-GM/(k-1)
+          GM<-GM+BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]
+          BD_Amostra$med_acum_gols_s_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]<-GS/(k-1)
+          GS<-GS+BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_man==lista_clube[j] & BD_Amostra$rodada==k]
+          
+        }else{#Condicional de time mandante  (demais rodadas)
+          BD_Amostra$med_acum_gols_m_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]<-GM/(k-1)
+          GM<-GM+BD_Amostra$gols_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]
+          BD_Amostra$med_acum_gols_s_vis[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]<-GS/(k-1)
+          GS<-GS+BD_Amostra$gols_man[BD_Amostra$ano_campeonato==i & BD_Amostra$time_vis==lista_clube[j] & BD_Amostra$rodada==k]
+        }#Fim Condicional de time mandante (demais rodadas)
+        
+      }#Fim Condicional da primeira rodada
+    }#Fim Laco Rodada
+  }#Fim Laco Clube
+}#Fim Laco Ano
+
+rm(i,j,k,lista_ano,lista_clube,GM,GS)
