@@ -423,7 +423,7 @@ rm(i,BD_Times_Estados)
 #---Posicao no Campeonato Estadual----#
 #---------------------------------------#
 
-#Inclusco da nova variavel
+#Inclusao da nova variavel
 BD_Amostra<-mutate(BD_Amostra,Finalista_Estadual_man="Nao",Finalista_Estadual_vis="Nao")
 
 
@@ -515,3 +515,19 @@ for (i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)) {
 }#Fim Laco Ano
 
 rm(i,j,k,lista_ano,lista_clube,GM,GS)
+
+#---------------------------------------#
+#-----------Batch-Fold_Index------------#
+#---------------------------------------#
+
+#Inclusao da nova variavel
+BD_Amostra<-mutate(BD_Amostra,Batch_Fold_Index=0)
+j<-1
+for (i in 1:round(nrow(BD_Amostra)/5,0)) {
+  BD_Amostra$Batch_Fold_Index[j]<-"A"
+  BD_Amostra$Batch_Fold_Index[j+1]<-"B"
+  BD_Amostra$Batch_Fold_Index[j+2]<-"C"
+  BD_Amostra$Batch_Fold_Index[j+3]<-"D"
+  BD_Amostra$Batch_Fold_Index[j+4]<-"E"
+  j<-j+5
+}
