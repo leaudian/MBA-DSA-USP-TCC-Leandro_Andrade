@@ -516,6 +516,7 @@ for (i in min(BD_Amostra$ano_campeonato):max(BD_Amostra$ano_campeonato)) {
 
 rm(i,j,k,lista_ano,lista_clube,GM,GS)
 
+
 #---------------------------------------#
 #-----------Batch-Fold_Index------------#
 #---------------------------------------#
@@ -529,5 +530,24 @@ for (i in 1:round(nrow(BD_Amostra)/5,0)) {
   BD_Amostra$Batch_Fold_Index[j+2]<-"C"
   BD_Amostra$Batch_Fold_Index[j+3]<-"D"
   BD_Amostra$Batch_Fold_Index[j+4]<-"E"
-  j<-j+5
+  BD_Amostra$Batch_Fold_Index[j+5]<-"F"
+  BD_Amostra$Batch_Fold_Index[j+6]<-"G"
+  BD_Amostra$Batch_Fold_Index[j+7]<-"H"
+  BD_Amostra$Batch_Fold_Index[j+8]<-"I"
+  BD_Amostra$Batch_Fold_Index[j+9]<-"J"
+  j<-j+10
 }
+
+rm(i,j)
+
+
+#---------------------------------------#
+#--Organização das colunas do dataset---#
+#---------------------------------------#
+
+BD_Amostra<-select(BD_Amostra,Batch_Fold_Index,gols_man,gols_vis,ano_campeonato,rodada,everything())
+view(head(BD_Amostra))
+
+
+#Exportar para xlsx a base de dados
+write.xlsx(BD_Amostra, "BD_Amostra_Backup.xlsx",sheetName = "Amostra")
