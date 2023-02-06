@@ -18,7 +18,7 @@ Caminho=paste0(getwd(),"/")
 #Carregar arquivo resultante da etapa anterior
 BD_Amostra<-read_excel(paste0(Caminho,"BD_Amostra_Backup.xlsx"))
 
-#Remoção das variáveis que não farão parte das Redes Neurais
+#Remoção das variáveis que não farão parte das Redes Neurais (Resultado da AnaCor)
 BD_Normalizado<-select(BD_Amostra,everything(),
                   -Estado_man,
                   -Estado_vis,
@@ -118,4 +118,10 @@ BD_Normalizado<-select(BD_Normalizado,everything(),
                            -time_man_Vitoria,
                            -time_vis_Vitoria)
 
-rm(BD_Neural_Networks)
+
+
+####################################################################################################################
+#################################Final da Análise de Correspondência################################################
+####################################################################################################################
+#Salvar em Excel
+write.xlsx(BD_Normalizado, "BD_Normalizado_Backup.xlsx",sheetName = "BD_Normalizado")
