@@ -3,8 +3,8 @@
 #----------------------------------------#
 library(dplyr)
 library("tidyverse")
-library(xlsx)
 library(openxlsx)
+library(readxl)
 
 #----------------------------------------#
 #--------Carregar banco de dados---------#
@@ -530,12 +530,13 @@ for (i in 1:round(nrow(BD_Amostra)/5,0)) {
   BD_Amostra$Batch_Fold_Index[j+2]<-"C"
   BD_Amostra$Batch_Fold_Index[j+3]<-"D"
   BD_Amostra$Batch_Fold_Index[j+4]<-"E"
-  BD_Amostra$Batch_Fold_Index[j+5]<-"F"
-  BD_Amostra$Batch_Fold_Index[j+6]<-"G"
-  BD_Amostra$Batch_Fold_Index[j+7]<-"H"
-  BD_Amostra$Batch_Fold_Index[j+8]<-"I"
-  BD_Amostra$Batch_Fold_Index[j+9]<-"J"
-  j<-j+10
+  #BD_Amostra$Batch_Fold_Index[j+5]<-"F"
+  #BD_Amostra$Batch_Fold_Index[j+6]<-"G"
+  #BD_Amostra$Batch_Fold_Index[j+7]<-"H"
+  #BD_Amostra$Batch_Fold_Index[j+8]<-"I"
+  #BD_Amostra$Batch_Fold_Index[j+9]<-"J"
+  #j<-j+10
+  j<-j+5
 }
 
 rm(i,j)
@@ -546,7 +547,6 @@ rm(i,j)
 #---------------------------------------#
 
 BD_Amostra<-select(BD_Amostra,Batch_Fold_Index,gols_man,gols_vis,ano_campeonato,rodada,everything())
-view(head(BD_Amostra))
 
 
 #Exportar para xlsx a base de dados
