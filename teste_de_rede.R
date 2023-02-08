@@ -205,33 +205,20 @@ rm(melhor_funcao_ativacao,melhor_lr,melhor_MSE,melhor_rede,MSE,tempo)
 
 
 #-------------***************Hora da Verdade***************-------------
+funcao_ativacao<-"logistic"
+#funcao_ativacao<-function(x) log(1+exp(x))
+#funcao_ativacao<-function(x) ifelse(x>=0,x,0)
 
-BD_NN_Normalizada<-BD_NN_Normalizada %>% mutate(
-  time_man_America.MG=as.numeric(time_man_America.MG))
+camadas<-5
+#camadas<-10
+#camadas<-30
 
-BD_NN_Normalizada<-BD_NN_Normalizada %>% mutate(
-  BD_NN_Normalizada[,20:93]=as.numeric(BD_NN_Normalizada[,20:93]))
+neuronios<-10
+#neuronios<-50
+#neuronios<-100
 
-BD_NN_Normalizada<-BD_NN_Normalizada %>% mutate(
-  BD_NN_Normalizada[,21]=as.numeric(BD_NN_Normalizada[,21]))
+rede<-rep(neuronios,each=camadas)
 
-BD_NN_Normalizada<-BD_NN_Normalizada %>% mutate(
-  col(21)=as.numeric(col(21)))
-
-BD_NN_Normalizada<-mutate(BD_NN_Normalizada=as.numeric(BD_NN_Normalizada))
-
-BD_NN_Normalizada<-BD_NN_Normalizada %>% mutate(
-  teste[1]=as.numeric(teste[1]))
-
-BD_NN_Normalizada<-BD_NN_Normalizada %>% mutate(
-  time_man_Athletico.PR=as.numeric(time_man_Athletico.PR))
-
-
-
-BD_AnaCor<-BD_AnaCor %>% mutate(
-  gols_man=as.factor(gols_man),
-  gols_vis=as.factor(gols_vis),
-  rodada=as.factor(rodada),
-  colocacao_man=as.factor(colocacao_man),
-  colocacao_vis=as.factor(colocacao_vis),
-  ano_campeonato=as.factor(ano_campeonato))
+lr<-0.1
+#lr<-0.05
+#lr<-0.01
