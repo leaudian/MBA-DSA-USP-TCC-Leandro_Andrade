@@ -1,6 +1,5 @@
-#----------------------------------------#
-#----------Carregar bibliotecas----------#
-#----------------------------------------#
+
+# Bibliotecas -----------------------------------------------------------------
 library(dplyr)
 library("tidyverse")
 library(openxlsx)
@@ -9,54 +8,57 @@ library(neuralnet)
 library(rpart)
 
 
-#----------------------------------------#
-#--------Carregar banco de dados---------#
-#----------------------------------------#
+
+# Banco de dados ----------------------------------------------------------
 #Caminho
 Caminho=paste0(getwd(),"/")
 
 #Carregar arquivo resultante da etapa anterior
 BD_Normalizado<-read_excel(paste0(Caminho,"BD_Normalizado_Backup.xlsx"))
+BD_Amostra<-read_excel(paste0(Caminho,"BD_Amostra_Backup.xlsx"))
 
 #Remoção das variáveis times (resultado da etapa de PCA)
 BD_Neural_Networks<-BD_Normalizado[,1:19]
 rm(BD_Normalizado)
 
 
-#//////////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////////////////////////////////////
-#.........................BKP...................................................
-#//////////////////////////////////////////////////////////////////////////////
-#//////////////////////////////////////////////////////////////////////////////
-melhor_MSE<-1e20
+# Redes Neurais -----------------------------------------------------------
+set.seed(0)
 MSE<-0
-tempo_algoritmo<-Sys.time()
-contador<-0
+lr<-0.1
+
+#Vetores e contador para armazenar os resultados
+lista_MSE<-rep(NA, each=27)
+lista_funcao_ativacao<-rep(NA, each=27)
+lista_camadas<-rep(NA, each=27)
+lista_neuronios<-rep(NA, each=27)
+lista_tempo<-rep(NA, each=27)
+n<-1 #contador a ser utilizado para armazenar as informações coletadas
 
 #Laço com a função de ativação (sigmoide / softplus / relu)
-for (i in 1:3){ tempo<-Sys.time()
-if (i==1){funcao_ativacao<-"logistic"}
-if (i==2){funcao_ativacao<-function(x) log(1+exp(x))}
-if (i==3){funcao_ativacao<-function(x) ifelse(x>=0,x,0)}
+for (i in 1:3){
+if (i==1){funcao_ativacao<-"logistic"} #Sigmoide
+if (i==2){funcao_ativacao<-function(x) log(1+exp(x))} #Softplus
+if (i==3){funcao_ativacao<-function(x) ifelse(x>=0,x,0)} #ReLU
 
 #Laço com a quantidade de camadas
 for(j in 1:3){
-  if (j==1){camadas<-5}
-  if (j==2){camadas<-10}
-  if (j==3){camadas<-30}
+  if (j==1){camadas<-1}
+  if (j==2){camadas<-2}
+  if (j==3){camadas<-3}
   
   #Laço com a quantidade de neuronios
   for(k in 1:3){
-    if (k==1){neuronios<-10}
-    if (k==2){neuronios<-50}
-    if (k==3){neuronios<-100}
+    if (k==1){neuronios<-5}
+    if (k==2){neuronios<-10}
+    if (k==3){neuronios<-15}
+    
     rede<-rep(neuronios,each=camadas)
     
     #Laço com a taxa de aprendizado
-    for (l in 1:3) {
-      if (l==1){lr<-0.1}
-      if (l==2){lr<-0.05}
-      if (l==3){lr<-0.01}
+    #for (l in 1:2) {
+      #if (l==1){lr<-0.1}
+      #if (l==3){lr<-0.01}
       
       #Laço com o cross validation
       for(m in 1:5){ 
@@ -80,17 +82,18 @@ for(j in 1:3){
         var_explicativas<-names(BD_Treino)[4:dim(BD_Treino)[2]]
         equacao<-as.formula(paste("gols_man+gols_vis~",paste(var_explicativas,collapse = "+")))
         
-        melhor_tempo<-Sys.time()
-        
         #Elaboração da rede
-        nn<-neuralnet(equacao,
+        tempo<-Sys.time()
+        modelo_rna<-neuralnet(equacao,
                       data = BD_Treino,
                       hidden = rede,
                       act.fct = funcao_ativacao,
-                      learningrate = lr)
-        melhor_tempo<-Sys.time()-melhor_tempo
+                      learningrate = lr,
+                      threshold = 0.1,
+                      linear.output = F)
+
         
-        previsao_normalizada<-neuralnet::compute(nn,BD_Teste[,4:dim(BD_Teste)[2]])
+        previsao_normalizada<-neuralnet::compute(modelo_rna,BD_Teste[,4:dim(BD_Teste)[2]])
         
         previsao_gm<-previsao_normalizada$net.result[,1]*(max(BD_Amostra$gols_man)-min(BD_Amostra$gols_man))+min(BD_Amostra$gols_man)
         previsao_gv<-previsao_normalizada$net.result[,2]*(max(BD_Amostra$gols_vis)-min(BD_Amostra$gols_vis))+min(BD_Amostra$gols_vis)
@@ -101,45 +104,54 @@ for(j in 1:3){
         desempenho_gm<-(previsao_gm-resultado_real_gm)^2
         desempenho_gv<-(previsao_gv-resultado_real_gv)^2
         
-        MSE_gm<-mean(desempenho_gm)
-        MSE_gv<-mean(desempenho_gv)
+        MSE_gm<-mean(desempenho_gm$gols_man)
+        MSE_gv<-mean(desempenho_gv$gols_vis)
         
-        MSE_kfold<-mean(c(MSE_gm,MSE_gv))
-        
-        MSE<-c(MSE,MSE_kfold)
-        
-        contador<-contador+1
+        MSE[[m]]<-mean(c(MSE_gm,MSE_gv))
+
         
         #Executa na última rodada de kfold
         if(m==5){
-          #Elimina o primeiro valor originalmente contido no MSE
-          MSE<-MSE[2:6]
+          tempo<-Sys.time()-tempo
           MSE<-mean(MSE)
+
+          lista_MSE[[n]]<-MSE
+          lista_funcao_ativacao[[n]]<-i
+          lista_camadas[[n]]<-camadas
+          lista_neuronios[[n]]<-neuronios
+          lista_tempo[[n]]<-tempo
           
-          #Avalia o MSE atual com o melhor resultado parcial (Armazenar a melhor arquitetura de rede encontrada)
-          if(MSE<=melhor_MSE){
-            melhor_MSE<-MSE
-            melhor_rede<-rede
-            melhor_funcao_ativacao<-funcao_ativacao
-            melhor_lr<-lr
-            melhor_tempo<-Sys.time()-melhor_tempo}
-          #Retorna o MSE para o valor original
           MSE<-0
-        }
-        m<-m+1}#Fim do Laço cross validation
-      l<-l+1}#Fim do Laço taxa de aprendizado
-    k<-k+1}#Fim do Laço quantidade de neuronios
-  j<-j+1}#Fim do Laço quantidade de camadas
-i<-i+1}#Fim do Laço da função de ativação
+          n<-n+1
+          } #Retorna o MSE para o valor original
+        }#Fim do Laço cross validation
+      #}#Fim do Laço taxa de aprendizado
+    }#Fim do Laço quantidade de neuronios
+  }#Fim do Laço quantidade de camadas
+}#Fim do Laço da função de ativação
 
-tempo_algoritmo<-Sys.time()-tempo_algoritmo
+Resultado<-cbind.data.frame(lista_funcao_ativacao,
+                            lista_camadas,
+                            lista_neuronios,
+                            lista_tempo,
+                            lista_MSE)
 
 
+rm(var_explicativas,
+   previsao_normalizada,
+   previsao_gm,
+   previsao_gv,
+   resultado_real_gm,
+   resultado_real_gv,
+   desempenho_gm,
+   desempenho_gv,
+   MSE_gm,
+   MSE_gv,
+   tempo,
+   camadas,
+   neuronios,
+   rede,
+   lr,i,i,j,m)
 
-
-rm(i,k,k,l,m,funcao_ativacao,camadas,neuronios,lr,
-   rede,BD_Treino,BD_Teste,var_explicativas,equacao)
-rm(previsao_gm,previsao_gv,resultado_real_gm,resultado_real_gv,
-   desempenho_gm,desempenho_gv,MSE_gm,MSE_gv,MSE)
 
 
