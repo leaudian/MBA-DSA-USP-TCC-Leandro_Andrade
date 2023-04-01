@@ -7,9 +7,6 @@ library(neuralnet)
 library(rpart)
 
 
-
-
-
 # Banco de dados ----------------------------------------------------------
 #Caminho
 Caminho=paste0(getwd(),"/")
@@ -29,10 +26,11 @@ rm(BD_Normalizado)
 set.seed(0)
 MSE<-0
 lr<-0.1
-neuronios<-
-camadas<-
+funcao_ativacao<-"logistic"
+camadas<-1
+neuronios<-15
 rede<-rep(neuronios,each=camadas)
-funcao_ativacao<-function(x) ifelse(x>=0,x,0)#ReLU
+
 
 
 
@@ -91,9 +89,6 @@ for(m in 1:5){
   if(m==5){
     tempo<-Sys.time()-tempo
     MSE<-mean(MSE)
-    
-    
-    MSE<-0
   } #Retorna o MSE para o valor original
 }#Fim do Laço cross validation
 
@@ -107,7 +102,6 @@ rm(var_explicativas,
    desempenho_gv,
    MSE_gm,
    MSE_gv,
-   tempo,
    camadas,
    neuronios,
    rede,
