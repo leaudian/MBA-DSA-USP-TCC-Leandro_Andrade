@@ -26,9 +26,9 @@ rm(BD_Normalizado)
 set.seed(0)
 MSE<-0
 lr<-0.1
-funcao_ativacao<-"logistic"
+funcao_ativacao<-function(x) log(1+exp(x))
 camadas<-1
-neuronios<-15
+neuronios<-5
 rede<-rep(neuronios,each=camadas)
 
 
@@ -92,6 +92,44 @@ for(m in 1:5){
   } #Retorna o MSE para o valor original
 }#Fim do Laço cross validation
 
+
+
+
+MSE
+tempo
+
+
+# Matriz de Confusão ------------------------------------------------------
+#Agrupamento dos resultados
+BD_Matriz_de_Confusao<-cbind(resultado_real_gm,resultado_real_gv,previsao_gm,previsao_gv)
+
+#Arredondamento dos valores previstos
+BD_Matriz_de_Confusao<-BD_Matriz_de_Confusao %>% mutate(
+  previsao_gm=round(BD_Matriz_de_Confusao$previsao_gm),
+  previsao_gv=round(BD_Matriz_de_Confusao$previsao_gv))
+
+#Classificação dos resultados
+BD_Matriz_de_Confusao<- BD_Matriz_de_Confusao %>% mutate(
+    Resultado_Real=case_when(
+  BD_Matriz_de_Confusao$gols_man>BD_Matriz_de_Confusao$gols_vis~"Vitoria_Mandante",
+  BD_Matriz_de_Confusao$gols_man==BD_Matriz_de_Confusao$gols_vis~"Empate",
+  BD_Matriz_de_Confusao$gols_man<BD_Matriz_de_Confusao$gols_vis~"Vitoria_Visitante"),
+    Resultado_Previsto=case_when(
+  BD_Matriz_de_Confusao$previsao_gm>BD_Matriz_de_Confusao$previsao_gv~"Vitoria_Mandante",
+  BD_Matriz_de_Confusao$previsao_gm==BD_Matriz_de_Confusao$previsao_gv~"Empate",
+  BD_Matriz_de_Confusao$previsao_gm<BD_Matriz_de_Confusao$previsao_gv~"Vitoria_Visitante"
+  ))
+
+BD_Matriz_de_Confusao$Resultado_Real<-as.factor(BD_Matriz_de_Confusao$Resultado_Real)
+BD_Matriz_de_Confusao$Resultado_Previsto<-as.factor(BD_Matriz_de_Confusao$Resultado_Previsto)
+
+BD_Matriz_de_Confusao %>% conf_mat(truth = Resultado_Real,estimate = Resultado_Previsto,dnn=c("previsto","real"))
+BD_Matriz_de_Confusao %>% accuracy(truth = Resultado_Real,estimate = Resultado_Previsto)
+BD_Matriz_de_Confusao %>% sens(truth = Resultado_Real,estimate = Resultado_Previsto)
+BD_Matriz_de_Confusao %>% spec(truth = Resultado_Real,estimate = Resultado_Previsto)
+
+
+
 rm(var_explicativas,
    previsao_normalizada,
    previsao_gm,
@@ -105,8 +143,5 @@ rm(var_explicativas,
    camadas,
    neuronios,
    rede,
-   lr,i,i,j,m)
-
-
-MSE
-tempo
+   lr,i,i,j,m,
+   modelo_rna)
